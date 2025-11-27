@@ -1,47 +1,51 @@
-CREATE DATABASE SchoolDB
-USE SchoolDB
+CREATE DATABASE GroupTaskDb;
 
-CREATE TABLE Students(
-Id INT PRIMARY KEY IDENTITY,
-FullName NVARCHAR(100) NOT NULL,
-Age INT,
-Email VARCHAR(100) UNIQUE,
-Score INT DEFAULT 0,
-CHECK(Age>=6 AND Age<=20),
-CHECK(Score>=0 AND Score<=100)
-)
+USE GroupTaskDb;
 
-INSERT INTO Students 
-VALUES
-('Nigar Huseynova',18,'nigarhuseynova88@gmail.com',72),
-('Samir Aliyev',14,'samiraliyev21@yahoo.com',83),
-('Leyla Karimova',10,'leylakr123@hotmail.com',55),
-('Murad Ismayilov',13,'muradismayilov77@gmail.com',47),
-('Sevinc Quliyeva',8,'sevincquliyeva09@gmail.com',68)
+CREATE TABLE Customers (
+    Id INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(255) NULL,
+    Phone NVARCHAR(50) NULL
+);
 
-ALTER TABLE Students
-ADD Course INT
-SELECT*FROM Students
+CREATE TABLE Categories (
+    Id INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(100) NOT NULL,
+    Description NVARCHAR(400) NULL
+);
 
-UPDATE Students
-SET Email = 'tural@gmail.com'
-WHERE Id = 1
+CREATE TABLE Suppliers (
+    Id INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(200) NOT NULL,
+    ContactInfo NVARCHAR(400) NULL
+);
 
-DELETE FROM Students
-WHERE(Email = 'tural@gmail.com')
+CREATE TABLE Products (
+    Id INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(200) NOT NULL,
+    Description NVARCHAR(400) NULL,
+    Price DECIMAL(10,2) NOT NULL,
+    CategoryId INT NULL  
+);
 
-ALTER TABLE Students
-ADD CONSTRAINT SchoolDB_Students_Score
-CHECK (Score % 5 = 0)
+CREATE TABLE Orders (
+    Id INT PRIMARY KEY IDENTITY,
+    CustomerId INT NULL, 
+    OrderDate DATETIME NULL,
+    Status NVARCHAR(50) NULL
+);
 
-CREATE TABLE AnotherStudents(
-Id INT PRIMARY KEY IDENTITY,
-FullName NVARCHAR(100) NOT NULL,
-Score INT DEFAULT 0
-)
+CREATE TABLE OrderItems (
+    Id INT PRIMARY KEY IDENTITY,
+    OrderId INT NULL,     
+    ProductId INT NULL,   
+    Quantity INT NULL,
+    UnitPrice DECIMAL(10,2) NULL
+);
 
-INSERT INTO AnotherStudents
-SELECT FullName,Score from Students
-WHERE(Score > 90)
-
-SELECT*FROM AnotherStudents
+CREATE TABLE ProductSuppliers (
+    Id INT PRIMARY KEY IDENTITY,
+    ProductId INT NULL,  
+    SupplierId INT NULL    
+);
