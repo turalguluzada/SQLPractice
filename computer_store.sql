@@ -281,3 +281,19 @@ SET salary = salary * 1.5
 WHERE id IN (
   SELECT employee_id FROM totals WHERE tot = (SELECT mx FROM max_tot)
 );
+
+--Task21
+SELECT B.name, COUNT(E.Id) AS employers_count 
+FROM Branch B
+JOIN Employers E ON E.branch_id = B.Id
+GROUP BY B.name
+
+--Task22
+SELECT M.name, COUNT(S.Id) AS sales_count
+FROM Products P
+JOIN Sales S ON S.product_id = P.id
+JOIN Models M ON M.id = P.model_id
+GROUP BY M.name
+
+--Task23
+
